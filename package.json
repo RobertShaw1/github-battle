@@ -7,12 +7,16 @@
     "start": "webpack-dev-server --open"
   },
   "babel": {
-    "presets": ["env", "react"]
+    "presets": [
+      "env",
+      "react"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
