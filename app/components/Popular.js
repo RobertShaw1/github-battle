@@ -1,5 +1,6 @@
-const  React = require('react');
+const React = require('react');
 const PropTypes = require('prop-types');
+const api = require('../utils/api');
 
 //A stateless functional component
 function SelectLanguage(props) {
@@ -20,26 +21,42 @@ function SelectLanguage(props) {
     )
 }
 
+//propTypes
 SelectLanguage.propTypes = {
     selectedLanguage: PropTypes.string.isRequired,
     onSelect: PropTypes.func.isRequired,
 }
 
+//Popular Components
 class Popular extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            selectedLanguage: 'All' //This sets the initial state
+            selectedLanguage: 'All', //This sets the initial state
+            repos: null
         };
 
         this.updateLanguage = this.updateLanguage.bind(this);
     }
+    componentDidMount() {
+        this.updateLanguage(this.state.selectedLanguage);
+    }
     updateLanguage(lang) {
         this.setState(function() {
             return {
-                selectedLanguage: lang
+                selectedLanguage: lang,
+                repos: null
             }
         });
+
+        api.fetchPopularRepos(lang)
+            .then(function(repos) {
+                this.setState(() => {
+                    return {
+                        repos: repos
+                    }
+                })
+            }.bind(this))
     }
     render() {
         return (
@@ -48,6 +65,7 @@ class Popular extends React.Component{
                     selectedLanguage={this.state.selectedLanguage}
                     onSelect={this.updateLanguage}
                 />
+                {JSON.stringify(this.state.repos, null, 2)}
            </div>
         )
     }
