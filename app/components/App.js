@@ -3,10 +3,10 @@ const ReactRouter = require('react-router-dom');
 const Router = ReactRouter.BrowserRouter;
 const Route = ReactRouter.Route;
 const Switch = ReactRouter.Switch;
-const Popular = require('./Popular');
 const Nav = require('./Nav');
 const Home = require('./Home');
 const Battle = require('./Battle');
+const Popular = require('./Popular');
 
 
 //Create App component
@@ -15,7 +15,7 @@ class App extends React.Component {
         return (
             <Router>
                 <div className='container'>
-                    <Nav />
+                    <Nav /> 
                     <Switch>
                         <Route exact path='/' component={Home} />
                         <Route exact path='/battle' component={Battle} />
