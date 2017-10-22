@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 
-function PlayerPreview(props) {
+export function PlayerPreview(props) {
   return (
     <div>
       <div className='column'>
@@ -45,7 +45,7 @@ export default class PlayerInput extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefaut();
+    event.preventDefault();
 
     this.props.onSubmit(
       this.props.id,
@@ -72,7 +72,7 @@ export default class PlayerInput extends Component {
           type='submit'
           disabled={!this.state.username}>
           Submit
-                </button>
+        </button>
       </form>
     )
   }
