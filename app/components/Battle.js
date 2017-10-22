@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import PlayerInput from './PlayerInput';
+import PlayerInput, { PlayerPreview } from './PlayerInput';
 
 
 export default class Battle extends Component {
@@ -17,22 +16,20 @@ export default class Battle extends Component {
     this.handleReset = this.handleReset.bind(this);
   }
 
-  handleSubmit(id, username) {
-    this.setState(function () {
-      let newState = {};
-      newState[id + 'Name'] = username;
-      newState[id + 'Image'] = `https://github.com/${username}.png?size=200`;
-      return newState;
-    });
+  handleSubmit(id, username) {    
+    const newState = {};
+    newState[id + 'Name'] = username;
+    newState[id + 'Image'] = `https://github.com/${username}.png?size=200`;
+
+    this.setState(newState);
   }
 
   handleReset(id) {
-    this.setState(function () {
-      let newState = {};
-      newState[id + 'Name'] = '';
-      newState[id + 'Image'] = null;
-      return newState;
-    })
+    const newState = {};
+    newState[id + 'Name'] = '';
+    newState[id + 'Image'] = null;    
+    
+    this.setState(newState);
   }
 
   render() {
@@ -50,19 +47,20 @@ export default class Battle extends Component {
               label='Player One'
               onSubmit={this.handleSubmit}
             />}
+
+            {playerOneImage !== null &&
+              <PlayerPreview
+                avatar={playerOneImage}
+                username={playerOneName}
+                onReset={this.handleReset}
+                id='playerOne'
+              />}
+
           {!playerTwoName &&
             <PlayerInput
               id='playerTwo'
               label='Player Two'
               onSubmit={this.handleSubmit}
-            />}
-
-          {playerOneImage !== null &&
-            <PlayerPreview
-              avatar={playerOneImage}
-              username={playerOneName}
-              onReset={this.handleReset}
-              id='playerOne'
             />}
 
           {playerTwoImage !== null &&
