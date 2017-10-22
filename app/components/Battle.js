@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PlayerInput, { PlayerPreview } from './PlayerInput';
 
 
@@ -33,10 +34,8 @@ export default class Battle extends Component {
   }
 
   render() {
-    let playerOneName = this.state.playerOneName;
-    let playerTwoName = this.state.playerTwoName;
-    let playerOneImage = this.state.playerOneImage;
-    let playerTwoImage = this.state.playerTwoImage;
+    const { playerOneName, playerTwoName, playerOneImage, playerTwoImage } = this.state;
+    const { match } = this.props;
 
     return (
       <div>
@@ -71,6 +70,16 @@ export default class Battle extends Component {
               id='playerTwo'
             />}
         </div>
+        {playerOneImage && playerTwoImage &&
+          <Link
+            className='button'
+            to={{
+              pathname: `${match.url}/results`,
+              search: `?playerOneName=${playerOneName}&playerTwoName=${playerTwoName}`
+            }}
+          >
+          Battle
+          </Link>}
       </div>
     )
   }
