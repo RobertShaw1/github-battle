@@ -80,7 +80,7 @@ export default class Popular extends Component {
 
     api.fetchPopularRepos(lang)
       .then( repos => {
-        this.setState({repos}).bind(this);
+        this.setState({repos});
       })
   }
 
