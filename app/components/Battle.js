@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PlayerInput, { PlayerPreview } from './PlayerInput';
-
+import PlayerInput from './PlayerInput';
+import PlayerPreview from './PlayerPreview';
 
 export default class Battle extends Component {
   constructor(props) {
@@ -51,9 +51,15 @@ export default class Battle extends Component {
               <PlayerPreview
                 avatar={playerOneImage}
                 username={playerOneName}
-                onReset={this.handleReset}
-                id='playerOne'
-              />}
+              >
+                <button
+                  className='reset'
+                  onClick={this.handleReset.bind(null, 'playerOne')}
+                >
+                  Reset
+                </button>
+              </PlayerPreview>
+                }
 
           {!playerTwoName &&
             <PlayerInput
@@ -66,9 +72,15 @@ export default class Battle extends Component {
             <PlayerPreview
               avatar={playerTwoImage}
               username={playerTwoName}
-              onReset={this.handleReset}
-              id='playerTwo'
-            />}
+            >
+            <button
+              className='reset'
+              onClick={this.handleReset.bind(null, 'playerTwo')}
+            >
+              Reset
+            </button>
+            </PlayerPreview>
+          }
         </div>
         {playerOneImage && playerTwoImage &&
           <Link
