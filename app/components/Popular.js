@@ -1,6 +1,10 @@
+/**NODE MODULES */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+/**LOCAL MODULES */
 import api from '../utils/api';
+import Loading from './Loading';
 
 //A stateless functional component
 function SelectLanguage(props) {
@@ -87,7 +91,8 @@ export default class Popular extends Component {
           selectedLanguage={this.state.selectedLanguage}
           onSelect={this.updateLanguage}
         />
-        {!this.state.repos ? <p>LOADING . . . </p>
+        {!this.state.repos
+          ? <Loading />
           : <RepoGrid repos={this.state.repos} />}
       </div>
     )

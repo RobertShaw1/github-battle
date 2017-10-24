@@ -7,6 +7,8 @@ import queryString from 'query-string';
 /**LOCAL MODULES */
 import api from '../utils/api';
 import PlayerPreview from './PlayerPreview';
+import Loading from './Loading';
+
 
 function Profile(props) {
   const { info } = props;
@@ -80,7 +82,7 @@ export default class Results extends Component {
   render() {
     const { error, winner, loser, loading } = this.state;
 
-    if(loading) return <p>Loading</p>;
+    if(loading) return <Loading  />;
     if(error) {
       return (
         <div>
