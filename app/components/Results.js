@@ -1,10 +1,49 @@
 /**NODE MODULES */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 
 /**LOCAL MODULES */
 import api from '../utils/api';
+import PlayerPreview from './PlayerPreview';
+
+function Profile(props) {
+  const { info } = props;
+  return (
+    <PlayerPreview avatar={info.avatar_url} username={info.login}>
+      <ul className='space-list-items'>
+        {info.name  && <li>{info.name}</li> }
+        {info.location  && <li>{info.location}</li> }
+        {info.company  && <li>{info.company}</li> }
+        <li>Followers: {info.followers}</li>
+        <li>Following: {info.following}</li>
+        <li>Public Repos: {info.public_repos}</li>
+        {info.blog && <li><a href={info.blog}>{info.blog}</a></li>}
+      </ul>
+    </PlayerPreview>
+  )
+}
+
+Profile.propTypes = {
+  info: PropTypes.object.isRequired,
+}
+
+function Player (props) {
+  return (
+    <div>
+      <h1 className='header'>{props.label}</h1>
+      <h3 style={{textAlign: 'center'}}>Score: {props.score}</h3>
+      <Profile info={props.profile} />
+    </div>
+  )
+}
+
+Player.propTypes = {
+  label: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+  // profile: PropTypes.profile.isRequired,
+}
 
 export default class Results extends Component {
   constructor(props) {
@@ -52,8 +91,17 @@ export default class Results extends Component {
     }
 
     return (
-      <div>
-        {JSON.stringify(this.state, null, 2)}
+      <div className='row'>
+        <Player
+          label="winner"
+          score={winner.score}
+          profile={winner.profile}
+        />
+        <Player
+          label="loser"
+          score={loser.score}
+          profile={loser.profile}
+        />
       </div>
     )
   }
