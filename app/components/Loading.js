@@ -19,7 +19,7 @@ export default class Loading extends Component {
   componentDidMount() {
     const stopper = this.state.text + '...';
     this.interval = window.setInterval(() => {
-      if(this.state.text === stopper) {
+      if (this.state.text === stopper) {
         this.setState({text: this.props.text});
       } else {
         this.setState(prevState => {

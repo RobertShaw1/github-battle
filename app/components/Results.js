@@ -1,10 +1,10 @@
-/**NODE MODULES */
+/* NODE MODULES */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
 
-/**LOCAL MODULES */
+/* LOCAL MODULES */
 import api from '../utils/api';
 import PlayerPreview from './PlayerPreview';
 import Loading from './Loading';
@@ -14,7 +14,7 @@ function Profile(props) {
   const { info } = props;
   return (
     <PlayerPreview avatar={info.avatar_url} username={info.login}>
-      <ul className='space-list-items'>
+      <ul className="space-list-items">
         {info.name  && <li>{info.name}</li> }
         {info.location  && <li>{info.location}</li> }
         {info.company  && <li>{info.company}</li> }
@@ -34,7 +34,7 @@ Profile.propTypes = {
 function Player (props) {
   return (
     <div>
-      <h1 className='header'>{props.label}</h1>
+      <h1 className="header">{props.label}</h1>
       <h3 style={{textAlign: 'center'}}>Score: {props.score}</h3>
       <Profile info={props.profile} />
     </div>
@@ -62,9 +62,9 @@ export default class Results extends Component {
     let players = queryString.parse(this.props.location.search)
     api.battle([
       players.playerOneName,
-      players.playerTwoName
+      players.playerTwoName,
     ]).then(results => {
-      if(!results){
+      if (!results){
         return this.setState({
           error: 'Looks like there was an error. Check that both users exist on Github.',
           loading: false,
@@ -82,18 +82,18 @@ export default class Results extends Component {
   render() {
     const { error, winner, loser, loading } = this.state;
 
-    if(loading) return <Loading  />;
-    if(error) {
+    if (loading) return <Loading  />;
+    if (error) {
       return (
         <div>
           <p>{error}</p>
-          <Link to='/battle'>Reset</Link>
+          <Link to="/battle">Reset</Link>
         </div>
       )
     }
 
     return (
-      <div className='row'>
+      <div className="row">
         <Player
           label="winner"
           score={winner.score}

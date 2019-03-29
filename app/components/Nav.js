@@ -4,19 +4,19 @@ import { NavLink } from 'react-router-dom';
 //A stateless functional component
 export default function Nav() {
   return (
-    <ul className='nav'>
+    <ul className="nav">
       <li>
-        <NavLink exact activeClassName='active' to='/'>
+        <NavLink exact activeClassName="active" to="/">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink activeClassName='active' to='/battle'>
+        <NavLink activeClassName="active" to="/battle">
           Battle
         </NavLink>
       </li>
       <li>
-        <NavLink activeClassName='active' to='/popular'>
+        <NavLink activeClassName="active" to="/popular">
           Popular
         </NavLink>
       </li>

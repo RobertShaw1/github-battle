@@ -10,7 +10,7 @@ export default class PlayerInput extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  
+
   handleChange(event) {
     let value = event.target.value;
     this.setState({username: value})
@@ -27,21 +27,21 @@ export default class PlayerInput extends Component {
 
   render() {
     return (
-      <form className='column' onSubmit={this.handleSubmit}>
-        <label className='header' htmlFor='username'>
+      <form className="column" onSubmit={this.handleSubmit}>
+        <label className="header" htmlFor="username">
           {this.props.label}
         </label>
         <input
-          id='username'
-          placeholder='github username'
-          type='text'
-          autoComplete='off'
+          id="username"
+          placeholder="github username"
+          type="text"
+          autoComplete="off"
           value={this.state.username}
           onChange={this.handleChange}
         />
         <button
-          className='button'
-          type='submit'
+          className="button"
+          type="submit"
           disabled={!this.state.username}>
           Submit
         </button>

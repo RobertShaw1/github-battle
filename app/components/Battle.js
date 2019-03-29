@@ -17,7 +17,7 @@ export default class Battle extends Component {
     this.handleReset = this.handleReset.bind(this);
   }
 
-  handleSubmit(id, username) {    
+  handleSubmit(id, username) {
     const newState = {};
     newState[id + 'Name'] = username;
     newState[id + 'Image'] = `https://github.com/${username}.png?size=200`;
@@ -28,8 +28,8 @@ export default class Battle extends Component {
   handleReset(id) {
     const newState = {};
     newState[id + 'Name'] = '';
-    newState[id + 'Image'] = null;    
-    
+    newState[id + 'Image'] = null;
+
     this.setState(newState);
   }
 
@@ -39,11 +39,11 @@ export default class Battle extends Component {
 
     return (
       <div>
-        <div className='row'>
+        <div className="row">
           {!playerOneName &&
             <PlayerInput
-              id='playerOne'
-              label='Player One'
+              id="playerOne"
+              label="Player One"
               onSubmit={this.handleSubmit}
             />}
 
@@ -53,7 +53,7 @@ export default class Battle extends Component {
                 username={playerOneName}
               >
                 <button
-                  className='reset'
+                  className="reset"
                   onClick={this.handleReset.bind(null, 'playerOne')}
                 >
                   Reset
@@ -63,8 +63,8 @@ export default class Battle extends Component {
 
           {!playerTwoName &&
             <PlayerInput
-              id='playerTwo'
-              label='Player Two'
+              id="playerTwo"
+              label="Player Two"
               onSubmit={this.handleSubmit}
             />}
 
@@ -74,7 +74,7 @@ export default class Battle extends Component {
               username={playerTwoName}
             >
             <button
-              className='reset'
+              className="reset"
               onClick={this.handleReset.bind(null, 'playerTwo')}
             >
               Reset
@@ -84,7 +84,7 @@ export default class Battle extends Component {
         </div>
         {playerOneImage && playerTwoImage &&
           <Link
-            className='button'
+            className="button"
             to={{
               pathname: `${match.url}/results`,
               search: `?playerOneName=${playerOneName}&playerTwoName=${playerTwoName}`
