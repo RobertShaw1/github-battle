@@ -1,5 +1,5 @@
 /* NODE MODULES */
-import React, { Component } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 /* LOCAL MODULES */
@@ -60,41 +60,35 @@ SelectLanguage.propTypes = {
 }
 
 //Popular Components
-export default class Popular extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedLanguage: 'All',
-      repos: null
-    };
-
-    this.updateLanguage = this.updateLanguage.bind(this);
-  }
-  componentDidMount() {
-    this.updateLanguage(this.state.selectedLanguage);
-  }
-
-  updateLanguage(lang) {
-    this.setState({selectedLanguage: lang});
+export default function Popular(props) {
+  const [selectedLanguage, setSelectedLanguage] = useState('All')
+  const [repos, setRepos] = useState(null)
+  
+  const updateLanguage = useCallback((lang) => {
+    setRepos(null);
+    setSelectedLanguage(lang);
 
     api.fetchPopularRepos(lang)
       .then( repos => {
-        this.setState({repos});
+        setRepos(repos);
       })
-  }
+  })
 
-  render() {
-    return (
-      <div>
-        <SelectLanguage
-          selectedLanguage={this.state.selectedLanguage}
-          onSelect={this.updateLanguage}
-        />
-        {!this.state.repos
-          ? <Loading />
-          : <RepoGrid repos={this.state.repos} />
-        }
-      </div>
-    )
-  }
+  useEffect(() => {
+    updateLanguage(selectedLanguage);
+  }, [])
+
+
+  return (
+    <div>
+      <SelectLanguage
+        selectedLanguage={selectedLanguage}
+        onSelect={updateLanguage}
+      />
+      {!repos
+        ? <Loading />
+        : <RepoGrid repos={repos} />
+      }
+    </div>
+  )
 }
