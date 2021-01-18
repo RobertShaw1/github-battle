@@ -1,53 +1,39 @@
-import React, { Component } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default class PlayerInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: ''
-    }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export default function PlayerInput(props) {
+  const [username, setUsername] = useState('')
 
-  handleChange(event) {
-    let value = event.target.value;
-    this.setState({username: value})
-  }
-
-  handleSubmit(event) {
+  const handleSubmit = useCallback((event) => {
     event.preventDefault();
 
-    this.props.onSubmit(
-      this.props.id,
-      this.state.username
+    props.onSubmit(
+      props.id,
+      username
     );
-  }
+  }, [props.id])
 
-  render() {
-    return (
-      <form className="column" onSubmit={this.handleSubmit}>
-        <label className="header" htmlFor="username">
-          {this.props.label}
-        </label>
-        <input
-          id="username"
-          placeholder="github username"
-          type="text"
-          autoComplete="off"
-          value={this.state.username}
-          onChange={this.handleChange}
-        />
-        <button
-          className="button"
-          type="submit"
-          disabled={!this.state.username}>
-          Submit
-        </button>
-      </form>
-    )
-  }
+  return (
+    <form className="column" onSubmit={handleSubmit}>
+      <label className="header" htmlFor="username">
+        {props.label}
+      </label>
+      <input
+        id="username"
+        placeholder="github username"
+        type="text"
+        autoComplete="off"
+        defaultValue={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <button
+        className="button"
+        type="submit"
+        disabled={!username}>
+        Submit
+      </button>
+    </form>
+  )
 }
 
 PlayerInput.propTypes = {
