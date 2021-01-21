@@ -73,11 +73,11 @@ a {
 
 .popular-item {
     margin: 20px;
-    text-align: center;
 }
 
 .space-list-items {
     margin-bottom: 7px;
+    text-align: center;
 }
 
 .avatar {

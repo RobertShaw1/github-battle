@@ -11,7 +11,7 @@ export default function PlayerInput(props) {
       props.id,
       username
     );
-  }, [props.id])
+  }, [props.id, username])
 
   return (
     <form className="column" onSubmit={handleSubmit}>

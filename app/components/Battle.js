@@ -36,21 +36,22 @@ export default function Battle(props) {
             id="PlayerOne"
             label="Player One"
             onSubmit={handleSubmit}
-          />}
+          />
+        }
 
-          {playerOneImage !== null &&
-            <PlayerPreview
-              avatar={playerOneImage}
-              username={playerOneName}
+        {playerOneImage !== null &&
+          <PlayerPreview
+            avatar={playerOneImage}
+            username={playerOneName}
+          >
+            <button
+              className="reset"
+              onClick={() => handleReset('PlayerOne')}
             >
-              <button
-                className="reset"
-                onClick={() => handleReset('PlayerOne')}
-              >
-                Reset
-              </button>
-            </PlayerPreview>
-              }
+              Reset
+            </button>
+          </PlayerPreview>
+        }
 
         {!playerTwoName &&
           <PlayerInput

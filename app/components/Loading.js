@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
+import { useInterval } from '../utils/hooks'
 
 const styles = {
   content: {
@@ -11,18 +13,14 @@ const styles = {
 export default function Loading(props) {
   const [text, setText] = useState(props.text)
 
-  useEffect(() => {
-    const stopper = text + '...';
-    const interval = window.setInterval(() => {
-      if (text === stopper) {
-        setText(text);
-      } else {
-        setText(prevText => prevText + '.');
-      }
-    }, props.speed)
-
-    return () => window.clearInterval(interval);
-  },[])
+  useInterval(() => {
+    const stopper = props.text + '...';
+    if (text === stopper) {
+      setText(props.text);
+    } else {
+      setText(prevText => prevText + '.');
+    }
+  },props.speed)
 
   return (
     <p style={styles.content}>

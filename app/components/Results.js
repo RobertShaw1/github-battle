@@ -1,5 +1,5 @@
 /* NODE MODULES */
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import queryString from 'query-string';
@@ -47,64 +47,53 @@ Player.propTypes = {
   // profile: PropTypes.profile.isRequired,
 }
 
-export default class Results extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      winner: null,
-      loser: null,
-      error: null,
-      loading: true,
-    }
-  }
+export default function Results(props) {
+  const [winner, setWinner] = useState(null)
+  const [loser, setLoser] = useState(null)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  componentDidMount() {
-    let players = queryString.parse(this.props.location.search)
+  useEffect(() => {
+    let players = queryString.parse(props.location.search)
     api.battle([
       players.playerOneName,
       players.playerTwoName,
     ]).then(results => {
       if (!results){
-        return this.setState({
-          error: 'Looks like there was an error. Check that both users exist on Github.',
-          loading: false,
-        })
+        throw Error('Looks like there was an error. Check that both users exist on Github.')
       }
-      this.setState({
-        error: null,
-        winner: results[0],
-        loser: results[1],
-        loading: false,
-      })
+
+      setWinner(results[0])
+      setLoser(results[1])
+      setLoading(false)
+    }).catch(err => {
+      setError(err)
+      setLoading(false)
     })
-  }
+  }, [])
 
-  render() {
-    const { error, winner, loser, loading } = this.state;
-
-    if (loading) return <Loading  />;
-    if (error) {
-      return (
-        <div>
-          <p>{error}</p>
-          <Link to="/battle">Reset</Link>
-        </div>
-      )
-    }
-
+  if (loading) return <Loading  />;
+  if (error) {
     return (
-      <div className="row">
-        <Player
-          label="winner"
-          score={winner.score}
-          profile={winner.profile}
-        />
-        <Player
-          label="loser"
-          score={loser.score}
-          profile={loser.profile}
-        />
+      <div>
+        <p>{error.message}</p>
+        <Link to="/battle">Reset</Link>
       </div>
     )
   }
+
+  return (
+    <div className="row">
+      <Player
+        label="winner"
+        score={winner.score}
+        profile={winner.profile}
+      />
+      <Player
+        label="loser"
+        score={loser.score}
+        profile={loser.profile}
+      />
+    </div>
+  )
 }
