@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve",
-    "build": "NODE_ENV='production' webpack -p --progress",
+    "build": "NODE_ENV='production' webpack --progress",
     "deploy": "npm run build && firebase deploy",
-    "firebase-init": "firebase login && firebase init"
+    "preview": "npm i && npm run build"
   },
   "babel": {
     "presets": [
