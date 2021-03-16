@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import queryString from 'query-string';
 
 /* LOCAL MODULES */
 import api from '../utils/api';
+import {queryStringParser} from '../utils/queryStringParser'
 import PlayerPreview from './PlayerPreview';
 import Loading from './Loading';
 
@@ -21,7 +21,7 @@ function Profile(props) {
         <li>Followers: {info.followers}</li>
         <li>Following: {info.following}</li>
         <li>Public Repos: {info.public_repos}</li>
-        {info.blog && <li><a href={info.blog}>{info.blog}</a></li>}
+        {info.blog && <li><a href={`http://${info.blog}`}>{info.blog}</a></li>}
       </ul>
     </PlayerPreview>
   )
@@ -54,7 +54,7 @@ export default function Results(props) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    let players = queryString.parse(props.location.search)
+    const players = queryStringParser()
     api.battle([
       players.playerOneName,
       players.playerTwoName,
